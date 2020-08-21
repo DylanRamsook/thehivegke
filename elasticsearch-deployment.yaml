@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: elasticsearch
+  name: elasticsearch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: elasticsearch
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: elasticsearch
+    spec:
+      containers:
+      - env:
+        - name: cluster.name
+          value: hive
+        - name: http.host
+          value: 0.0.0.0
+        - name: script.inline
+          value: "true"
+        - name: thread_pool.bulk.queue_size
+          value: "100000"
+        - name: thread_pool.index.queue_size
+          value: "100000"
+        - name: thread_pool.search.queue_size
+          value: "100000"
+        - name: transport.host
+          value: 0.0.0.0
+        - name: xpack.security.enabled
+          value: "false"
+        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.0
+        imagePullPolicy: ""
+        name: elasticsearch
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
