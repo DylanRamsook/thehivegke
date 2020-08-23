@@ -13,7 +13,8 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: thehive
-  strategy: {}
+  strategy:
+    type: Recreate
   template:
     metadata:
       annotations:
@@ -31,7 +32,13 @@ spec:
         - containerPort: 9000
           hostIP: 0.0.0.0
         resources: {}
+        volumeMounts:
+        - mountPath: /etc/thehive/application.conf
+          name: thehive-claim0
       restartPolicy: Always
       serviceAccountName: ""
-      volumes: null
+      volumes:
+      - name: thehive-claim0
+        persistentVolumeClaim:
+          claimName: thehive-claim0
 status: {}
