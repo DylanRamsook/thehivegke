@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-08-23T18:18:04Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  generateName: thehive-
+  labels:
+    io.kompose.service: thehive
+  name: thehive-7wlks
+  namespace: default
+  resourceVersion: "1003462"
+  selfLink: /api/v1/namespaces/default/services/thehive-7wlks
+  uid: 38035d85-b297-46c2-86ca-5237af504b42
+spec:
+  clusterIP: 10.0.16.133
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 32289
+    port: 80
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    io.kompose.service: thehive
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 104.155.186.144
+
